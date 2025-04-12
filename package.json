@@ -7,6 +7,9 @@
         "watch": "tsc --watch"
     },
     "devDependencies": {
+        "@types/chrome": "^0.0.315",
+        "@types/filewriter": "^0.0.33",
+        "@types/har-format": "^1.2.16",
         "typescript": "^5.5.4"
     },
     "license": "MIT"

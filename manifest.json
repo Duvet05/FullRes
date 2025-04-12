@@ -1,0 +1,50 @@
+{
+    "manifest_version": 3,
+    "name": "FullRes",
+    "version": "1.0.0",
+    "description": "Force streaming platforms to deliver maximum resolution and optimize for UltraWide monitors.",
+    "permissions": [
+        "storage",
+        "activeTab",
+        "scripting"
+    ],
+    "host_permissions": [
+        "*://*.netflix.com/*",
+        "*://*.hbo.com/*",
+        "*://*.disneyplus.com/*",
+        "*://*.amazon.com/*",
+        "*://*.youtube.com/*"
+    ],
+    "background": {
+        "service_worker": "background.js"
+    },
+    "content_scripts": [
+        {
+            "matches": [
+                "*://*.netflix.com/*",
+                "*://*.hbo.com/*",
+                "*://*.disneyplus.com/*",
+                "*://*.amazon.com/*",
+                "*://*.youtube.com/*"
+            ],
+            "js": [
+                "detectResolution.js",
+                "videoAdjust.js",
+                "platformHandler.js"
+            ]
+        }
+    ],
+    "action": {
+        "default_popup": "popup.html",
+        "default_icon": {
+            "16": "assets/icons/icon16.png",
+            "48": "assets/icons/icon48.png",
+            "128": "assets/icons/icon128.png"
+        }
+    },
+    "icons": {
+        "16": "assets/icons/icon16.png",
+        "48": "assets/icons/icon48.png",
+        "128": "assets/icons/icon128.png"
+    }
+}
