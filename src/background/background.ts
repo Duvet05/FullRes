@@ -1,12 +1,15 @@
-import { Resolution } from "../content/detectResolution";
 
 chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
   if (message.type === "RESOLUTION_DETECTED") {
-    const resolution: Resolution = message.payload;
+    const resolution = message.payload;
     console.log(`Resolution detected: ${resolution.width}x${resolution.height}`);
-    // Aquí puedes almacenar la resolución o enviarla a otros scripts
+  } else if (message.type === "GET_RESOLUTION") {
+    sendResponse({ width: window.screen.width, height: window.screen.height });
+  } else if (message.type === "SAVE_SETTINGS") {
+    chrome.storage.local.set({ settings: message.payload }, () => {
+      console.log("Settings updated");
+    });
   }
 });
 
-// Inicializar la extensión
 console.log("FullRes background script loaded");
