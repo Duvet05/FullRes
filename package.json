@@ -1,0 +1,13 @@
+{
+    "name": "fullres",
+    "version": "1.0.0",
+    "description": "Chromium extension to force max resolution on streaming platforms",
+    "scripts": {
+        "build": "tsc && cp manifest.json dist/ && cp -r assets dist/",
+        "watch": "tsc --watch"
+    },
+    "devDependencies": {
+        "typescript": "^5.5.4"
+    },
+    "license": "MIT"
+}

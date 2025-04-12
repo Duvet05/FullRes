@@ -1,0 +1,27 @@
+# Archivos de compilación y empaquetado
+dist/
+build/
+*.zip
+
+# Dependencias de Node.js
+node_modules/
+package-lock.json
+yarn.lock
+
+# Archivos temporales y de sistema
+.DS_Store
+Thumbs.db
+*.log
+
+# Archivos de configuración del editor
+.vscode/
+.idea/
+*.sublime-project
+*.sublime-workspace
+
+# Archivos de entorno
+.env
+
+# Archivos de pruebas locales
+test/
+coverage/
