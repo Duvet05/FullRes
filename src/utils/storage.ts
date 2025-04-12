@@ -18,9 +18,11 @@ interface UserSettings {
     });
   }
   
+  // LO QUE SEA
   export async function saveSettings(settings: Partial<UserSettings>): Promise<void> {
     const currentSettings = await getSettings();
     return new Promise((resolve) => {
+      console.log("Saving settings", { ...currentSettings, ...settings });
       chrome.storage.local.set(
         { settings: { ...currentSettings, ...settings } },
         () => resolve()
