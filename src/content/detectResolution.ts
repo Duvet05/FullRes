@@ -1,17 +1,16 @@
-interface Resolution {
+export interface Resolution {
     width: number;
     height: number;
   }
   
-  function detectScreenResolution(): Resolution {
+  export function detectScreenResolution(): Resolution {
     return {
       width: window.screen.width,
       height: window.screen.height,
     };
   }
   
-  // Enviar resolución al background script
-  function sendResolutionToBackground() {
+  export function sendResolutionToBackground() {
     const resolution = detectScreenResolution();
     chrome.runtime.sendMessage({
       type: "RESOLUTION_DETECTED",
