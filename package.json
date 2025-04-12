@@ -3,12 +3,14 @@
     "version": "1.0.0",
     "description": "Chromium extension to force max resolution on streaming platforms",
     "scripts": {
-        "build": "tsc && cp manifest.json dist/ && cp -r assets dist/ && cp src/popup/popup.html dist/popup/",
-        "watch": "tsc --watch"
+      "build": "tsc && copyfiles manifest.json dist/ && copyfiles -u 1 \"assets/**/*\" dist/ && copyfiles src/popup/popup.html dist/popup/",
+      "watch": "tsc --watch"
     },
     "devDependencies": {
-        "@types/chrome": "^0.0.315",
-        "typescript": "^5.6.3"
+      "@types/chrome": "^0.0.315",
+      "typescript": "^5.6.3",
+      "copyfiles": "^2.4.1"
     },
     "license": "MIT"
-}
+  }
+  
