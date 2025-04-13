@@ -7,9 +7,15 @@
   </head>
   <body>
     <div class="container">
-      <h1>FullRes</h1>
-      <p>Resolución detectada: <span id="resolution">Detectando...</span></p>
-      <button id="toggle">Actualizar resolución</button>
+      <div class="header">
+        <h1>FullRes</h1>
+        <span class="status" id="status">Detectando...</span>
+      </div>
+      <p>Resolución: <span id="resolution">Cargando...</span></p>
+      <label class="toggle-switch">
+        <input type="checkbox" id="toggle" />
+        <span class="slider"></span>
+      </label>
     </div>
     <script type="module" src="./popup.js"></script>
   </body>
