@@ -1,16 +1,35 @@
 {
     "name": "fullres",
-    "version": "1.0.0",
     "description": "Chromium extension to force max resolution on streaming platforms",
+    "version": "1.0.0",
+    "author": {
+        "name": "Duvet05",
+        "email": "gonzalo.galvezc@pucp.edu.pe",
+        "url": "https://github.com/Duvet05"
+    },
+    "license": "MIT",
     "scripts": {
-      "build": "tsc && copyfiles manifest.json dist/ && copyfiles -u 1 \"assets/**/*\" dist/ && copyfiles src/popup/popup.html dist/popup/",
-      "watch": "tsc --watch"
+        "build": "tsc scripts/build.ts && node scripts/build.js",
+        "watch": "tsc scripts/build.ts && node scripts/build.js --watch",
+        "dev": "tsc scripts/build.ts && node scripts/build.js --watch"
     },
+    "homepage": "https://github.com/Duvet05/FullRes#readme",
+    "bugs": "https://github.com/Duvet05/FullRes/issues",
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/Duvet05/FullRes.git"
+    },
+    "keywords": [
+        "video",
+        "extension",
+        "browser",
+        "chrome",
+        "aspect ratio"
+    ],
     "devDependencies": {
-      "@types/chrome": "^0.0.315",
-      "typescript": "^5.6.3",
-      "copyfiles": "^2.4.1"
-    },
-    "license": "MIT"
-  }
-  
+        "@types/chrome": "^0.0.315",
+        "@types/node": "^22.7.4",
+        "esbuild": "^0.24.0",
+        "typescript": "^5.6.3"
+    }
+}
