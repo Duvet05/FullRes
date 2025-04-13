@@ -1,16 +1,37 @@
-import { getSettings, saveSettings } from '../utils/storage';
+import { saveSettings } from '../utils/storage'
 
 chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
-    if (message.type === "RESOLUTION_DETECTED") {
-        const resolution = message.payload;
-        console.log(`Resolution detected: ${resolution.width}x${resolution.height}`);
-    } else if (message.type === "GET_RESOLUTION") {
-        sendResponse({ width: window.screen.width, height: window.screen.height });
-    } else if (message.type === "SAVE_SETTINGS") {
-        saveSettings(message.payload).then(() => {
-            console.log("Settings updated");
-        });
-    }
-});
+  try {
+    switch (message.type) {
+      case 'RESOLUTION_DETECTED':
+        handleResolutionDetected(message.payload)
+        break
 
-console.log("FullRes background script loaded");
+      case 'GET_RESOLUTION':
+        sendResponse({ error: 'Not available in service worker' })
+        break
+
+      case 'SAVE_SETTINGS':
+        handleSaveSettings(message.payload)
+          .then(() => sendResponse({ success: true }))
+          .catch(err => sendResponse({ success: false, error: err.message }))
+        return true // keep message channel open for async response
+
+      default:
+        console.warn('Unknown message type:', message.type)
+    }
+  } catch (error) {
+    console.error('Error handling message:', error)
+  }
+})
+
+function handleResolutionDetected(payload: { width: number; height: number }) {
+  console.log(`Resolution detected: ${payload.width}x${payload.height}`)
+}
+
+async function handleSaveSettings(payload: any) {
+  await saveSettings(payload)
+  console.log('Settings updated')
+}
+
+console.log('FullRes background service worker loaded')
