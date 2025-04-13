@@ -42,3 +42,12 @@ button {
 button:hover {
   background-color: #d9363e;
 }
+
+button:disabled {
+  background-color: #cccccc;
+  cursor: not-allowed;
+}
+
+button:active {
+  background-color: #b73136;
+}
