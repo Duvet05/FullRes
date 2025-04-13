@@ -18,5 +18,15 @@ function sendResolutionToBackground() {
   });
 }
 
+// Escuchar mensajes (e.g., desde popup)
+chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
+  if (message.type === "GET_RESOLUTION") {
+      const resolution = detectScreenResolution();
+      sendResponse(resolution);
+  }
+  return true; // Mantener canal abierto para respuestas asíncronas
+});
+
+// Enviar resolución inicial y en cambios
 sendResolutionToBackground();
 window.addEventListener("resize", sendResolutionToBackground);

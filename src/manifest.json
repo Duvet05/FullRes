@@ -22,11 +22,7 @@
     "content_scripts": [
         {
             "matches": [
-                "*://*.netflix.com/*",
-                "*://*.hbo.com/*",
-                "*://*.disneyplus.com/*",
-                "*://*.amazon.com/*",
-                "*://*.youtube.com/*"
+                "<all_urls>"
             ],
             "js": [
                 "content.js"
