@@ -11,7 +11,7 @@ export default defineConfig({
       input: {
         background: resolve(__dirname, 'src/background/background.ts'),
         content: resolve(__dirname, 'src/content/detectResolution.ts'),
-        popup: resolve(__dirname, 'src/popup/popup.html')
+        popup: resolve(__dirname, 'src/popup/popup.html'),
       },
       output: {
         entryFileNames: (chunkInfo) => {
@@ -21,14 +21,17 @@ export default defineConfig({
           return 'assets/[name].js'
         },
         assetFileNames: (assetInfo) => {
-          if (assetInfo.name && assetInfo.name.endsWith('.css') && assetInfo.name.includes('popup')) {
+          if (
+            assetInfo.name &&
+            assetInfo.name.endsWith('.css') &&
+            assetInfo.name.includes('popup')
+          ) {
             return 'popup/[name][extname]'
           }
           return 'assets/[name][extname]'
-        }
-      }
-      
-    }
+        },
+      },
+    },
   },
   plugins: [
     viteStaticCopy({
