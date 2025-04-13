@@ -9,7 +9,11 @@
         "scripting"
     ],
     "host_permissions": [
-        "<all_urls>"
+        "*://*.netflix.com/*",
+        "*://*.hbo.com/*",
+        "*://*.disneyplus.com/*",
+        "*://*.amazon.com/*",
+        "*://*.youtube.com/*"
     ],
     "background": {
         "service_worker": "background.js",

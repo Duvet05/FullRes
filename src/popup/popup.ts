@@ -5,34 +5,44 @@ document.addEventListener("DOMContentLoaded", () => {
     const statusSpan = document.getElementById("status")!;
     const toggleInput = document.getElementById("toggle")! as HTMLInputElement;
 
-    // Actualizar resolución desde content script
+    // Actualizar resolución
     const updateResolution = () => {
-        // Obtener pestaña activa
         chrome.tabs.query({ active: true, currentWindow: true }, (tabs) => {
-            if (!tabs[0]?.id) {
-                console.error("No se encontró pestaña activa");
-                resolutionSpan.textContent = "No disponible";
+            const tab = tabs[0];
+            if (!tab?.id || !tab.url || !tab.url.match(/^https?:\/\//)) {
+                console.log("Pestaña no soportada para content script:", tab?.url || "unknown");
+                // Intentar desde background
+                chrome.runtime.sendMessage({ type: "GET_LAST_RESOLUTION" }, (response) => {
+                    if (response?.width && response?.height) {
+                        resolutionSpan.textContent = `${response.width}x${response.height} (reciente)`;
+                    } else {
+                        resolutionSpan.textContent = "No disponible";
+                    }
+                });
                 return;
             }
 
-            // Enviar mensaje al content script
-            chrome.tabs.sendMessage(
-                tabs[0].id,
-                { type: "GET_RESOLUTION" },
-                (response) => {
-                    if (chrome.runtime.lastError) {
-                        console.error("Error al obtener resolución:", chrome.runtime.lastError.message);
-                        resolutionSpan.textContent = "Error";
-                        return;
-                    }
-                    if (response?.width && response?.height) {
-                        resolutionSpan.textContent = `${response.width}x${response.height}`;
-                    } else {
-                        console.error("Respuesta inválida:", response);
-                        resolutionSpan.textContent = "No disponible";
-                    }
+            // Enviar al content script
+            chrome.tabs.sendMessage(tab.id, { type: "GET_RESOLUTION" }, (response) => {
+                if (chrome.runtime.lastError) {
+                    console.log("Content script no disponible:", chrome.runtime.lastError.message);
+                    // Fallback al background
+                    chrome.runtime.sendMessage({ type: "GET_LAST_RESOLUTION" }, (bgResponse) => {
+                        if (bgResponse?.width && bgResponse?.height) {
+                            resolutionSpan.textContent = `${bgResponse.width}x${bgResponse.height} (reciente)`;
+                        } else {
+                            resolutionSpan.textContent = "No disponible";
+                        }
+                    });
+                    return;
                 }
-            );
+                if (response?.width && response?.height) {
+                    resolutionSpan.textContent = `${response.width}x${response.height}`;
+                } else {
+                    console.log("Respuesta inválida:", response);
+                    resolutionSpan.textContent = "No disponible";
+                }
+            });
         });
     };
 
@@ -48,7 +58,7 @@ document.addEventListener("DOMContentLoaded", () => {
     getSettings()
         .then((settings) => {
             updateUI(settings);
-            updateResolution(); // Cargar resolución al abrir
+            updateResolution();
         })
         .catch((error) => {
             console.error("Error al cargar configuración:", error);
@@ -62,7 +72,7 @@ document.addEventListener("DOMContentLoaded", () => {
             .then(() => {
                 console.log(`Extensión ${newPriority === "max" ? "activada" : "desactivada"}`);
                 getSettings().then(updateUI);
-                updateResolution(); // Validar y actualizar resolución
+                updateResolution();
             })
             .catch((error) => {
                 console.error("Error al guardar configuración:", error);
