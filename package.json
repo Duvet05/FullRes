@@ -9,7 +9,7 @@
     },
     "license": "MIT",
     "scripts": {
-        "dev": "vite build --watch",
+        "dev": "vite --port 3000 --mode development",
         "build": "vite build"
     },
     "homepage": "https://github.com/Duvet05/FullRes#readme",
