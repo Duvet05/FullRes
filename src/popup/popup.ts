@@ -1,13 +1,21 @@
+import { saveSettings } from '../utils/storage';
+
 document.addEventListener("DOMContentLoaded", () => {
-  const resolutionSpan = document.getElementById("resolution")!;
-  const toggleButton = document.getElementById("toggle")!;
+    const resolutionSpan = document.getElementById("resolution")!;
+    const toggleButton = document.getElementById("toggle")!;
 
-  // Obtener resolución directamente (no vía background)
-  const width = window.screen.width;
-  const height = window.screen.height;
-  resolutionSpan.textContent = `${width}x${height}`;
+    chrome.runtime.sendMessage({ type: "GET_RESOLUTION" }, (response) => {
+        if (response?.width && response?.height) {
+            resolutionSpan.textContent = `${response.width}x${response.height}`;
+        } else {
+            resolutionSpan.textContent = "Unknown";
+        }
+    });
 
-  toggleButton.addEventListener("click", () => {
-    console.log("Extension toggled");
-  });
+    toggleButton.addEventListener("click", () => {
+        console.log("Extension toggled");
+        saveSettings({ resolutionPriority: "max" }).then(() => {
+            console.log("Settings saved");
+        });
+    });
 });
