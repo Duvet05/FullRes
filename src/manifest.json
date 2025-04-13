@@ -24,6 +24,15 @@
                 "content.js"
             ],
             "run_at": "document_idle"
+        },
+        {
+            "matches": [
+                "*://*.youtube.com/*"
+            ],
+            "js": [
+                "content/videoAdjust.js"
+            ],
+            "run_at": "document_idle"
         }
     ],
     "action": {
