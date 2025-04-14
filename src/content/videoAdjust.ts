@@ -15,12 +15,9 @@ function forceMaxQuality(): void {
     }
 
     const selectMaxQuality = () => {
-        // Abrir menú de ajustes
         settingsButton.click();
 
-        // Esperar un momento para que el menú cargue
         setTimeout(() => {
-            // Buscar opción de "Calidad"
             const qualityMenuItem = Array.from(document.querySelectorAll(".ytp-menuitem-label"))
                 .find((el) => el.textContent?.includes("Quality") || el.textContent?.includes("Calidad"));
             if (!qualityMenuItem) {
@@ -29,7 +26,6 @@ function forceMaxQuality(): void {
                 return;
             }
 
-            // Clic en "Calidad"
             (qualityMenuItem.parentElement as HTMLElement).click();
 
             // Esperar a que carguen las opciones de calidad

@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>FullRes - Configuración</title>
+    <link rel="stylesheet" href="./options.css" />
+  </head>
+  <body>
+    <div class="container">
+      <header>
+        <h1>FullRes - Configuración</h1>
+        <p class="subtitle">
+          Configure las preferencias para mejorar la calidad de video en
+          plataformas de streaming
+        </p>
+      </header>
+
+      <section class="section">
+        <h2>Plataformas Compatibles</h2>
+        <p class="section-description">
+          Seleccione las plataformas donde desea activar automáticamente
+          FullRes:
+        </p>
+
+        <div class="platforms-list">
+          <div class="platform-item">
+            <input type="checkbox" id="netflix" class="platform-checkbox" />
+            <label for="netflix">Netflix</label>
+            <span class="platform-status" id="netflixStatus">Compatible</span>
+          </div>
+
+          <div class="platform-item">
+            <input type="checkbox" id="hbomax" class="platform-checkbox" />
+            <label for="hbomax">HBO Max</label>
+            <span class="platform-status" id="hbomaxStatus">Compatible</span>
+          </div>
+
+          <div class="platform-item">
+            <input type="checkbox" id="disney" class="platform-checkbox" />
+            <label for="disney">Disney+</label>
+            <span class="platform-status" id="disneyStatus">Compatible</span>
+          </div>
+
+          <div class="platform-item">
+            <input type="checkbox" id="youtube" class="platform-checkbox" />
+            <label for="youtube">YouTube</label>
+            <span class="platform-status" id="youtubeStatus">Compatible</span>
+          </div>
+
+          <div class="platform-item">
+            <input type="checkbox" id="primevideo" class="platform-checkbox" />
+            <label for="primevideo">Prime Video</label>
+            <span class="platform-status" id="primevideoStatus"
+              >Compatible</span
+            >
+          </div>
+
+          <div class="platform-item">
+            <input type="checkbox" id="hulu" class="platform-checkbox" />
+            <label for="hulu">Hulu</label>
+            <span class="platform-status" id="huluStatus">Experimental</span>
+          </div>
+        </div>
+      </section>
+
+      <section class="section">
+        <h2>Configuración Predeterminada</h2>
+        <p class="section-description">
+          Configure los valores predeterminados para todas las plataformas:
+        </p>
+
+        <div class="default-settings">
+          <div class="setting-item">
+            <label for="defaultResolution">Resolución predeterminada:</label>
+            <select id="defaultResolution">
+              <option value="4k">4K (3840x2160)</option>
+              <option value="2k">2K (2560x1440)</option>
+              <option value="fullhd">Full HD (1920x1080)</option>
+              <option value="custom">Personalizada</option>
+            </select>
+          </div>
+
+          <div
+            id="defaultCustomResolution"
+            class="setting-item custom-resolution hidden"
+          >
+            <div class="custom-inputs">
+              <div class="input-group">
+                <label for="defaultWidth">Ancho:</label>
+                <input
+                  type="number"
+                  id="defaultWidth"
+                  placeholder="Ancho"
+                  min="640"
+                  max="7680"
+                />
+              </div>
+
+              <div class="input-group">
+                <label for="defaultHeight">Alto:</label>
+                <input
+                  type="number"
+                  id="defaultHeight"
+                  placeholder="Alto"
+                  min="480"
+                  max="4320"
+                />
+              </div>
+
+              <div class="input-group">
+                <label for="defaultDpr">DPR:</label>
+                <input
+                  type="number"
+                  id="defaultDpr"
+                  placeholder="DPR"
+                  min="1"
+                  max="5"
+                  step="0.1"
+                />
+              </div>
+            </div>
+          </div>
+
+          <div class="setting-item">
+            <label for="activateOnLoad"
+              >Activar automáticamente al cargar plataformas
+              seleccionadas:</label
+            >
+            <div class="toggle-switch">
+              <input type="checkbox" id="activateOnLoad" />
+              <label for="activateOnLoad"></label>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="section">
+        <h2>Diagnósticos</h2>
+        <p class="section-description">
+          Información detallada sobre el funcionamiento de la extensión:
+        </p>
+
+        <div class="diagnostics">
+          <div class="diagnostic-item">
+            <h3>Estadísticas</h3>
+            <div class="stats-container">
+              <div class="stat">
+                <span class="stat-label">Páginas activadas:</span>
+                <span class="stat-value" id="activatedPages">0</span>
+              </div>
+
+              <div class="stat">
+                <span class="stat-label">Mejoras detectadas:</span>
+                <span class="stat-value" id="detectedImprovements">0</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="diagnostic-item">
+            <h3>Registro de Actividad</h3>
+            <div class="log-container">
+              <div class="log-controls">
+                <button id="clearLogs" class="btn-secondary">
+                  Limpiar registros
+                </button>
+                <button id="exportLogs" class="btn-secondary">
+                  Exportar registros
+                </button>
+              </div>
+              <div class="log-viewer" id="logViewer">
+                <div class="log-entry">No hay registros disponibles</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="section">
+        <h2>Acerca de FullRes</h2>
+        <div class="about-info">
+          <p>
+            FullRes es una extensión de Chrome que te ayuda a obtener la mejor
+            calidad de video posible en plataformas de streaming.
+          </p>
+          <p>
+            Al simular una resolución de pantalla más alta, FullRes fuerza a las
+            plataformas a entregar streams de mayor calidad.
+          </p>
+          <p>Versión: 1.0.0</p>
+          <div class="about-links">
+            <a href="#" id="reportIssue">Reportar problema</a>
+            <a href="#" id="viewPrivacy">Política de privacidad</a>
+          </div>
+        </div>
+      </section>
+
+      <div class="action-buttons">
+        <button id="saveSettings" class="btn-primary">
+          Guardar configuración
+        </button>
+        <button id="restoreDefaults" class="btn-secondary">
+          Restaurar valores predeterminados
+        </button>
+      </div>
+    </div>
+
+    <script type="module" src="./options.js"></script>
+  </body>
+</html>

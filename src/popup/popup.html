@@ -1,7 +1,8 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
   <head>
     <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>FullRes</title>
     <link rel="stylesheet" href="./popup.css" />
   </head>
@@ -9,10 +10,106 @@
     <div class="container">
       <div class="header">
         <h1>FullRes</h1>
-        <span class="status" id="status">Cargando...</span>
+        <div class="platform-info">
+          <span class="platform-tag" id="platformTag">No detectado</span>
+          <span class="status" id="status">Cargando...</span>
+        </div>
       </div>
-      <p>Resolución: <span id="resolution">Cargando...</span></p>
-      <button id="refresh">Actualizar resolución</button>
+
+      <div class="resolution-info">
+        <div class="info-row">
+          <span class="info-label">Resolución detectada:</span>
+          <span class="info-value" id="resolution">Cargando...</span>
+          <span
+            class="tooltip-icon"
+            data-tooltip="Resolución actual reportada por el navegador"
+            >ⓘ</span
+          >
+        </div>
+
+        <div class="info-row">
+          <span class="info-label">Device Pixel Ratio:</span>
+          <span class="info-value" id="dpr">Cargando...</span>
+          <span
+            class="tooltip-icon"
+            data-tooltip="Relación de píxeles del dispositivo (DPR)"
+            >ⓘ</span
+          >
+        </div>
+      </div>
+
+      <div class="mode-toggle">
+        <div class="switch">
+          <input type="checkbox" id="modeToggle" />
+          <label for="modeToggle"></label>
+        </div>
+        <span class="mode-label" id="modeLabel">Resolución Original</span>
+      </div>
+
+      <div id="simulatedOptions" class="simulated-options hidden">
+        <div class="resolution-selector">
+          <label for="resolutionSelect">Resolución a simular:</label>
+          <select id="resolutionSelect">
+            <option value="4k">4K (3840x2160)</option>
+            <option value="2k">2K (2560x1440)</option>
+            <option value="fullhd">Full HD (1920x1080)</option>
+            <option value="custom">Personalizada</option>
+          </select>
+        </div>
+
+        <div id="customResolution" class="custom-resolution hidden">
+          <input
+            type="number"
+            id="customWidth"
+            placeholder="Ancho"
+            min="640"
+            max="7680"
+          />
+          <span>x</span>
+          <input
+            type="number"
+            id="customHeight"
+            placeholder="Alto"
+            min="480"
+            max="4320"
+          />
+          <input
+            type="number"
+            id="customDpr"
+            placeholder="DPR"
+            min="1"
+            max="5"
+            step="0.1"
+          />
+        </div>
+
+        <div class="stream-info">
+          <div class="info-row">
+            <span class="info-label">Bitrate estimado:</span>
+            <span class="info-value" id="bitrate">No disponible</span>
+            <span
+              class="tooltip-icon"
+              data-tooltip="Bitrate aproximado del stream actual"
+              >ⓘ</span
+            >
+          </div>
+
+          <div class="info-row">
+            <span class="info-label">Tipo de stream:</span>
+            <span class="info-value" id="streamType">No disponible</span>
+            <span
+              class="tooltip-icon"
+              data-tooltip="Indica si la resolución es nativa o escalada"
+              >ⓘ</span
+            >
+          </div>
+        </div>
+      </div>
+
+      <div class="buttons">
+        <button id="refresh" class="btn-refresh">Actualizar</button>
+        <button id="settings" class="btn-settings">Configuración</button>
+      </div>
     </div>
     <script type="module" src="./popup.js"></script>
   </body>
